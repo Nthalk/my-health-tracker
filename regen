@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+cd $(dirname "${BASH_SOURCE[0]}")
+set -x
+./regen-db-models
+./regen-api-models

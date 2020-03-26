@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+cd $(dirname "${BASH_SOURCE[0]}")
+set -euo pipefail
+VERSION=$(cat pom.xml | grep '<version' | cut -d'>' -f2 | cut -d'<' -f1 | head -n1)
+JAR=web/target/web-"$VERSION".jar
+if [ ! -f "$JAR" ]; then
+  mvn clean install
+fi
+java -jar "$JAR" "$@"

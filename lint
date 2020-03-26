@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+prettier --write 'web/src/**/*.tsx' 'web/src/**/*.ts'
+eslint 'web/src/**/*.ts' 'web/src/**/*.tsx'  --fix
+if [ ! -x "./ktlint" ]; then
+  echo 'Downloading ktlint...'
+  curl -sSLO https://github.com/pinterest/ktlint/releases/download/0.35.0/ktlint && chmod a+x ktlint
+fi
+./ktlint --experimental --format --disabled_rules=no-wildcard-imports

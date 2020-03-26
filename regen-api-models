@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+cd $(dirname "${BASH_SOURCE[0]}")
+set -x
+mvn -pl web \
+  -DNPM_BUILD_PHASE=none \
+  clean \
+  compile \
+  typescript-generator:generate
