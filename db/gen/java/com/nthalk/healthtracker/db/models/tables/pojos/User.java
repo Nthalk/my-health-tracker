@@ -5,6 +5,7 @@ package com.nthalk.healthtracker.db.models.tables.pojos;
 
 
 import java.io.Serializable;
+import java.time.OffsetDateTime;
 
 
 /**
@@ -13,11 +14,13 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class User implements Serializable {
 
-    private static final long serialVersionUID = -1283673261;
+    private static final long serialVersionUID = 1783492378;
 
-    private Long  userId;
-    private Float normalMinTemperature;
-    private Float normalMaxTemperature;
+    private Long           userId;
+    private Float          normalMinTemperature;
+    private Float          normalMaxTemperature;
+    private String         defaultTemperatureUnit;
+    private OffsetDateTime createdAt;
 
     public User() {}
 
@@ -25,16 +28,22 @@ public class User implements Serializable {
         this.userId = value.userId;
         this.normalMinTemperature = value.normalMinTemperature;
         this.normalMaxTemperature = value.normalMaxTemperature;
+        this.defaultTemperatureUnit = value.defaultTemperatureUnit;
+        this.createdAt = value.createdAt;
     }
 
     public User(
-        Long  userId,
-        Float normalMinTemperature,
-        Float normalMaxTemperature
+        Long           userId,
+        Float          normalMinTemperature,
+        Float          normalMaxTemperature,
+        String         defaultTemperatureUnit,
+        OffsetDateTime createdAt
     ) {
         this.userId = userId;
         this.normalMinTemperature = normalMinTemperature;
         this.normalMaxTemperature = normalMaxTemperature;
+        this.defaultTemperatureUnit = defaultTemperatureUnit;
+        this.createdAt = createdAt;
     }
 
     public Long getUserId() {
@@ -61,6 +70,22 @@ public class User implements Serializable {
         this.normalMaxTemperature = normalMaxTemperature;
     }
 
+    public String getDefaultTemperatureUnit() {
+        return this.defaultTemperatureUnit;
+    }
+
+    public void setDefaultTemperatureUnit(String defaultTemperatureUnit) {
+        this.defaultTemperatureUnit = defaultTemperatureUnit;
+    }
+
+    public OffsetDateTime getCreatedAt() {
+        return this.createdAt;
+    }
+
+    public void setCreatedAt(OffsetDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("User (");
@@ -68,6 +93,8 @@ public class User implements Serializable {
         sb.append(userId);
         sb.append(", ").append(normalMinTemperature);
         sb.append(", ").append(normalMaxTemperature);
+        sb.append(", ").append(defaultTemperatureUnit);
+        sb.append(", ").append(createdAt);
 
         sb.append(")");
         return sb.toString();

@@ -14,13 +14,15 @@ import java.util.List;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row11;
+import org.jooq.Row13;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
+import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.TableImpl;
 
@@ -31,7 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class UserCheckin extends TableImpl<UserCheckinRecord> {
 
-    private static final long serialVersionUID = 1750927001;
+    private static final long serialVersionUID = 897131150;
 
     /**
      * The reference instance of <code>user_checkin</code>
@@ -45,6 +47,11 @@ public class UserCheckin extends TableImpl<UserCheckinRecord> {
     public Class<UserCheckinRecord> getRecordType() {
         return UserCheckinRecord.class;
     }
+
+    /**
+     * The column <code>user_checkin.checkin_id</code>.
+     */
+    public final TableField<UserCheckinRecord, Long> CHECKIN_ID = createField(DSL.name("checkin_id"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('user_checkin_checkin_id_seq'::regclass)", org.jooq.impl.SQLDataType.BIGINT)), this, "");
 
     /**
      * The column <code>user_checkin.user_id</code>.
@@ -75,6 +82,11 @@ public class UserCheckin extends TableImpl<UserCheckinRecord> {
      * The column <code>user_checkin.temperature</code>.
      */
     public final TableField<UserCheckinRecord, Float> TEMPERATURE = createField(DSL.name("temperature"), org.jooq.impl.SQLDataType.REAL.nullable(false), this, "");
+
+    /**
+     * The column <code>user_checkin.temperature_unit</code>.
+     */
+    public final TableField<UserCheckinRecord, String> TEMPERATURE_UNIT = createField(DSL.name("temperature_unit"), org.jooq.impl.SQLDataType.VARCHAR.nullable(false), this, "");
 
     /**
      * The column <code>user_checkin.fever_start_at</code>.
@@ -140,6 +152,21 @@ public class UserCheckin extends TableImpl<UserCheckinRecord> {
     }
 
     @Override
+    public Identity<UserCheckinRecord, Long> getIdentity() {
+        return Keys.IDENTITY_USER_CHECKIN;
+    }
+
+    @Override
+    public UniqueKey<UserCheckinRecord> getPrimaryKey() {
+        return Keys.USER_CHECKIN_PKEY;
+    }
+
+    @Override
+    public List<UniqueKey<UserCheckinRecord>> getKeys() {
+        return Arrays.<UniqueKey<UserCheckinRecord>>asList(Keys.USER_CHECKIN_PKEY);
+    }
+
+    @Override
     public List<ForeignKey<UserCheckinRecord, ?>> getReferences() {
         return Arrays.<ForeignKey<UserCheckinRecord, ?>>asList(Keys.USER_CHECKIN__USER_CHECKIN_USER_ID_FKEY);
     }
@@ -175,11 +202,11 @@ public class UserCheckin extends TableImpl<UserCheckinRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row11 type methods
+    // Row13 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row11<Long, OffsetDateTime, Double, Double, Double, Float, OffsetDateTime, Integer, Integer, Integer, Integer> fieldsRow() {
-        return (Row11) super.fieldsRow();
+    public Row13<Long, Long, OffsetDateTime, Double, Double, Double, Float, String, OffsetDateTime, Integer, Integer, Integer, Integer> fieldsRow() {
+        return (Row13) super.fieldsRow();
     }
 }

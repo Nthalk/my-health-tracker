@@ -14,14 +14,16 @@ import java.time.OffsetDateTime;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class UserCheckin implements Serializable {
 
-    private static final long serialVersionUID = 701204522;
+    private static final long serialVersionUID = -1175263258;
 
+    private Long           checkinId;
     private Long           userId;
     private OffsetDateTime createdAt;
     private Double         gpsLatitude;
     private Double         gpsLongitude;
     private Double         gpsAccuracy;
     private Float          temperature;
+    private String         temperatureUnit;
     private OffsetDateTime feverStartAt;
     private Integer        soreThroatScale;
     private Integer        congestionScale;
@@ -31,12 +33,14 @@ public class UserCheckin implements Serializable {
     public UserCheckin() {}
 
     public UserCheckin(UserCheckin value) {
+        this.checkinId = value.checkinId;
         this.userId = value.userId;
         this.createdAt = value.createdAt;
         this.gpsLatitude = value.gpsLatitude;
         this.gpsLongitude = value.gpsLongitude;
         this.gpsAccuracy = value.gpsAccuracy;
         this.temperature = value.temperature;
+        this.temperatureUnit = value.temperatureUnit;
         this.feverStartAt = value.feverStartAt;
         this.soreThroatScale = value.soreThroatScale;
         this.congestionScale = value.congestionScale;
@@ -45,29 +49,41 @@ public class UserCheckin implements Serializable {
     }
 
     public UserCheckin(
+        Long           checkinId,
         Long           userId,
         OffsetDateTime createdAt,
         Double         gpsLatitude,
         Double         gpsLongitude,
         Double         gpsAccuracy,
         Float          temperature,
+        String         temperatureUnit,
         OffsetDateTime feverStartAt,
         Integer        soreThroatScale,
         Integer        congestionScale,
         Integer        coldSweatsScale,
         Integer        sensitiveSkinScale
     ) {
+        this.checkinId = checkinId;
         this.userId = userId;
         this.createdAt = createdAt;
         this.gpsLatitude = gpsLatitude;
         this.gpsLongitude = gpsLongitude;
         this.gpsAccuracy = gpsAccuracy;
         this.temperature = temperature;
+        this.temperatureUnit = temperatureUnit;
         this.feverStartAt = feverStartAt;
         this.soreThroatScale = soreThroatScale;
         this.congestionScale = congestionScale;
         this.coldSweatsScale = coldSweatsScale;
         this.sensitiveSkinScale = sensitiveSkinScale;
+    }
+
+    public Long getCheckinId() {
+        return this.checkinId;
+    }
+
+    public void setCheckinId(Long checkinId) {
+        this.checkinId = checkinId;
     }
 
     public Long getUserId() {
@@ -118,6 +134,14 @@ public class UserCheckin implements Serializable {
         this.temperature = temperature;
     }
 
+    public String getTemperatureUnit() {
+        return this.temperatureUnit;
+    }
+
+    public void setTemperatureUnit(String temperatureUnit) {
+        this.temperatureUnit = temperatureUnit;
+    }
+
     public OffsetDateTime getFeverStartAt() {
         return this.feverStartAt;
     }
@@ -162,12 +186,14 @@ public class UserCheckin implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder("UserCheckin (");
 
-        sb.append(userId);
+        sb.append(checkinId);
+        sb.append(", ").append(userId);
         sb.append(", ").append(createdAt);
         sb.append(", ").append(gpsLatitude);
         sb.append(", ").append(gpsLongitude);
         sb.append(", ").append(gpsAccuracy);
         sb.append(", ").append(temperature);
+        sb.append(", ").append(temperatureUnit);
         sb.append(", ").append(feverStartAt);
         sb.append(", ").append(soreThroatScale);
         sb.append(", ").append(congestionScale);

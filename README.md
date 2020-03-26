@@ -8,15 +8,14 @@ This is a starter project for using spring-boot, postgres, jooq, jooq-models, sp
     # Ensure clean build
     mvn clean install
     
-    # Dev Tab:
-    ./dbcli migrate         # <= Run this when you update migrations
-    ./dbcli --help          # <= Print dbcli help
+    # Dev Tools:
+    ./db-migrate            # <= Run this when you update migrations
     ./regen                 # <= Run this when you want to regen models (db/api)
     ./regen-db-models       # <= Run this when you want to regen database models
     ./regen-api-models      # <= Run this when you want to regen api models
     ./dev-watch             # <= Watch for changes and rebuild web ui (see http://localhost:8081 for live view)
     
-    # Server Tab:
+    # Server Tools:
     ./webcli                # <= Run the webserver
     ./webcli --help         # <= Print webcli help
     

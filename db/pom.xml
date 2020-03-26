@@ -2,8 +2,23 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <artifactId>my-heath-tracker</artifactId>
+    <groupId>com.nthalk</groupId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+
   <artifactId>db</artifactId>
 
+  <properties>
+    <jdbc.url>jdbc:postgresql://localhost:5432/myhealthtracker</jdbc.url>
+    <jdbc.user>myhealthtracker</jdbc.user>
+    <jdbc.schema>myhealthtracker</jdbc.schema>
+    <jdbc.password>myhealthtracker</jdbc.password>
+  </properties>
   <build>
     <plugins>
       <plugin>
@@ -50,7 +65,7 @@
           <generator>
             <database>
               <includes>.*</includes>
-              <inputSchema>public</inputSchema>
+              <inputSchema>${jdbc.schema}</inputSchema>
               <name>org.jooq.meta.postgres.PostgresDatabase</name>
               <outputCatalogToDefault>true</outputCatalogToDefault>
               <outputSchemaToDefault>true</outputSchemaToDefault>
@@ -67,9 +82,9 @@
           </generator>
           <jdbc>
             <driver>org.postgresql.Driver</driver>
-            <password>myhealthtracker</password>
+            <password>${jdbc.password}</password>
             <url>${jdbc.url}</url>
-            <username>myhealthtracker</username>
+            <username>${jdbc.user}</username>
           </jdbc>
         </configuration>
         <groupId>org.jooq</groupId>
@@ -92,6 +107,24 @@
         </executions>
         <groupId>org.codehaus.mojo</groupId>
         <version>3.0.0</version>
+      </plugin>
+      <plugin>
+        <groupId>org.flywaydb</groupId>
+        <artifactId>flyway-maven-plugin</artifactId>
+        <version>6.3.2</version>
+        <configuration>
+          <user>${jdbc.user}</user>
+          <password>${jdbc.password}</password>
+          <schemas>
+            <schema>${jdbc.schema}</schema>
+          </schemas>
+          <url>
+            ${jdbc.url}
+          </url>
+          <locations>
+            <location>filesystem:/${project.basedir}/src/main/resources/db</location>
+          </locations>
+        </configuration>
       </plugin>
     </plugins>
     <resources>
@@ -148,14 +181,4 @@
     </dependency>
   </dependencies>
 
-  <modelVersion>4.0.0</modelVersion>
-
-  <parent>
-    <artifactId>my-heath-tracker</artifactId>
-    <groupId>com.nthalk</groupId>
-    <version>1.0.0-SNAPSHOT</version>
-  </parent>
-  <properties>
-    <jdbc.url>jdbc:postgresql://localhost:5432/webstack</jdbc.url>
-  </properties>
 </project>

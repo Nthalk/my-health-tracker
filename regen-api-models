@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 cd $(dirname "${BASH_SOURCE[0]}")
-set -x
+set -euo pipefail
 mvn -pl web \
   -DNPM_BUILD_PHASE=none \
   clean \

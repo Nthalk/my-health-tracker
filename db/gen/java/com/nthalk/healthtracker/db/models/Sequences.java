@@ -15,6 +15,11 @@ import org.jooq.impl.Internal;
 public class Sequences {
 
     /**
+     * The sequence <code>user_checkin_checkin_id_seq</code>
+     */
+    public static final Sequence<Long> USER_CHECKIN_CHECKIN_ID_SEQ = Internal.createSequence("user_checkin_checkin_id_seq", DefaultSchema.DEFAULT_SCHEMA, org.jooq.impl.SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
+
+    /**
      * The sequence <code>USER_user_id_seq</code>
      */
     public static final Sequence<Long> USER_USER_ID_SEQ = Internal.createSequence("USER_user_id_seq", DefaultSchema.DEFAULT_SCHEMA, org.jooq.impl.SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);

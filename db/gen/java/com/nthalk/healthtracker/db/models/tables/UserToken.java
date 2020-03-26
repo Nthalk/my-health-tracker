@@ -8,6 +8,7 @@ import com.nthalk.healthtracker.db.models.DefaultSchema;
 import com.nthalk.healthtracker.db.models.Keys;
 import com.nthalk.healthtracker.db.models.tables.records.UserTokenRecord;
 
+import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,11 +16,12 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row2;
+import org.jooq.Row3;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
+import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.TableImpl;
 
@@ -30,7 +32,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class UserToken extends TableImpl<UserTokenRecord> {
 
-    private static final long serialVersionUID = 2099985220;
+    private static final long serialVersionUID = -1672898437;
 
     /**
      * The reference instance of <code>user_token</code>
@@ -46,14 +48,19 @@ public class UserToken extends TableImpl<UserTokenRecord> {
     }
 
     /**
+     * The column <code>user_token.token</code>.
+     */
+    public final TableField<UserTokenRecord, String> TOKEN = createField(DSL.name("token"), org.jooq.impl.SQLDataType.VARCHAR.nullable(false), this, "");
+
+    /**
      * The column <code>user_token.user_id</code>.
      */
     public final TableField<UserTokenRecord, Long> USER_ID = createField(DSL.name("user_id"), org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
-     * The column <code>user_token.token</code>.
+     * The column <code>user_token.created_at</code>.
      */
-    public final TableField<UserTokenRecord, String> TOKEN = createField(DSL.name("token"), org.jooq.impl.SQLDataType.VARCHAR.nullable(false), this, "");
+    public final TableField<UserTokenRecord, OffsetDateTime> CREATED_AT = createField(DSL.name("created_at"), org.jooq.impl.SQLDataType.TIMESTAMPWITHTIMEZONE.nullable(false), this, "");
 
     /**
      * Create a <code>user_token</code> table reference
@@ -94,6 +101,16 @@ public class UserToken extends TableImpl<UserTokenRecord> {
     }
 
     @Override
+    public UniqueKey<UserTokenRecord> getPrimaryKey() {
+        return Keys.USER_TOKEN_PKEY;
+    }
+
+    @Override
+    public List<UniqueKey<UserTokenRecord>> getKeys() {
+        return Arrays.<UniqueKey<UserTokenRecord>>asList(Keys.USER_TOKEN_PKEY);
+    }
+
+    @Override
     public List<ForeignKey<UserTokenRecord, ?>> getReferences() {
         return Arrays.<ForeignKey<UserTokenRecord, ?>>asList(Keys.USER_TOKEN__USER_TOKEN_USER_ID_FKEY);
     }
@@ -129,11 +146,11 @@ public class UserToken extends TableImpl<UserTokenRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row2 type methods
+    // Row3 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row2<Long, String> fieldsRow() {
-        return (Row2) super.fieldsRow();
+    public Row3<String, Long, OffsetDateTime> fieldsRow() {
+        return (Row3) super.fieldsRow();
     }
 }

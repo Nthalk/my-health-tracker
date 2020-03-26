@@ -8,6 +8,7 @@ import com.nthalk.healthtracker.db.models.DefaultSchema;
 import com.nthalk.healthtracker.db.models.Keys;
 import com.nthalk.healthtracker.db.models.tables.records.UserRecord;
 
+import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row3;
+import org.jooq.Row5;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -32,7 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class User extends TableImpl<UserRecord> {
 
-    private static final long serialVersionUID = 1884949813;
+    private static final long serialVersionUID = 184540926;
 
     /**
      * The reference instance of <code>USER</code>
@@ -61,6 +62,16 @@ public class User extends TableImpl<UserRecord> {
      * The column <code>USER.normal_max_temperature</code>.
      */
     public final TableField<UserRecord, Float> NORMAL_MAX_TEMPERATURE = createField(DSL.name("normal_max_temperature"), org.jooq.impl.SQLDataType.REAL, this, "");
+
+    /**
+     * The column <code>USER.default_temperature_unit</code>.
+     */
+    public final TableField<UserRecord, String> DEFAULT_TEMPERATURE_UNIT = createField(DSL.name("default_temperature_unit"), org.jooq.impl.SQLDataType.VARCHAR, this, "");
+
+    /**
+     * The column <code>USER.created_at</code>.
+     */
+    public final TableField<UserRecord, OffsetDateTime> CREATED_AT = createField(DSL.name("created_at"), org.jooq.impl.SQLDataType.TIMESTAMPWITHTIMEZONE.nullable(false), this, "");
 
     /**
      * Create a <code>USER</code> table reference
@@ -142,11 +153,11 @@ public class User extends TableImpl<UserRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row3 type methods
+    // Row5 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row3<Long, Float, Float> fieldsRow() {
-        return (Row3) super.fieldsRow();
+    public Row5<Long, Float, Float, String, OffsetDateTime> fieldsRow() {
+        return (Row5) super.fieldsRow();
     }
 }

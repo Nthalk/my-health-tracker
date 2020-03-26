@@ -5,6 +5,7 @@ package com.nthalk.healthtracker.db.models.tables.pojos;
 
 
 import java.io.Serializable;
+import java.time.OffsetDateTime;
 
 
 /**
@@ -13,23 +14,35 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class UserToken implements Serializable {
 
-    private static final long serialVersionUID = 420148294;
+    private static final long serialVersionUID = -184733234;
 
-    private Long   userId;
-    private String token;
+    private String         token;
+    private Long           userId;
+    private OffsetDateTime createdAt;
 
     public UserToken() {}
 
     public UserToken(UserToken value) {
-        this.userId = value.userId;
         this.token = value.token;
+        this.userId = value.userId;
+        this.createdAt = value.createdAt;
     }
 
     public UserToken(
-        Long   userId,
-        String token
+        String         token,
+        Long           userId,
+        OffsetDateTime createdAt
     ) {
+        this.token = token;
         this.userId = userId;
+        this.createdAt = createdAt;
+    }
+
+    public String getToken() {
+        return this.token;
+    }
+
+    public void setToken(String token) {
         this.token = token;
     }
 
@@ -41,20 +54,21 @@ public class UserToken implements Serializable {
         this.userId = userId;
     }
 
-    public String getToken() {
-        return this.token;
+    public OffsetDateTime getCreatedAt() {
+        return this.createdAt;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setCreatedAt(OffsetDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("UserToken (");
 
-        sb.append(userId);
-        sb.append(", ").append(token);
+        sb.append(token);
+        sb.append(", ").append(userId);
+        sb.append(", ").append(createdAt);
 
         sb.append(")");
         return sb.toString();

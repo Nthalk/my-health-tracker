@@ -32,6 +32,7 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final Identity<UserRecord, Long> IDENTITY_USER = Identities0.IDENTITY_USER;
+    public static final Identity<UserCheckinRecord, Long> IDENTITY_USER_CHECKIN = Identities0.IDENTITY_USER_CHECKIN;
 
     // -------------------------------------------------------------------------
     // UNIQUE and PRIMARY KEY definitions
@@ -39,6 +40,8 @@ public class Keys {
 
     public static final UniqueKey<FlywaySchemaHistoryRecord> FLYWAY_SCHEMA_HISTORY_PK = UniqueKeys0.FLYWAY_SCHEMA_HISTORY_PK;
     public static final UniqueKey<UserRecord> USER_PKEY = UniqueKeys0.USER_PKEY;
+    public static final UniqueKey<UserCheckinRecord> USER_CHECKIN_PKEY = UniqueKeys0.USER_CHECKIN_PKEY;
+    public static final UniqueKey<UserTokenRecord> USER_TOKEN_PKEY = UniqueKeys0.USER_TOKEN_PKEY;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
@@ -53,11 +56,14 @@ public class Keys {
 
     private static class Identities0 {
         public static Identity<UserRecord, Long> IDENTITY_USER = Internal.createIdentity(User.USER, User.USER.USER_ID);
+        public static Identity<UserCheckinRecord, Long> IDENTITY_USER_CHECKIN = Internal.createIdentity(UserCheckin.USER_CHECKIN, UserCheckin.USER_CHECKIN.CHECKIN_ID);
     }
 
     private static class UniqueKeys0 {
         public static final UniqueKey<FlywaySchemaHistoryRecord> FLYWAY_SCHEMA_HISTORY_PK = Internal.createUniqueKey(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, "flyway_schema_history_pk", new TableField[] { FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.INSTALLED_RANK }, true);
         public static final UniqueKey<UserRecord> USER_PKEY = Internal.createUniqueKey(User.USER, "USER_pkey", new TableField[] { User.USER.USER_ID }, true);
+        public static final UniqueKey<UserCheckinRecord> USER_CHECKIN_PKEY = Internal.createUniqueKey(UserCheckin.USER_CHECKIN, "user_checkin_pkey", new TableField[] { UserCheckin.USER_CHECKIN.CHECKIN_ID }, true);
+        public static final UniqueKey<UserTokenRecord> USER_TOKEN_PKEY = Internal.createUniqueKey(UserToken.USER_TOKEN, "user_token_pkey", new TableField[] { UserToken.USER_TOKEN.TOKEN }, true);
     }
 
     private static class ForeignKeys0 {
